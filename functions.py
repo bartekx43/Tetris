@@ -1,6 +1,6 @@
 import pygame
-from Python.Projects.Games.Tetris import sprites
-# import sprites
+#from Python.Projects.Games.Tetris import sprites
+import sprites
 from functools import partial
 
 
@@ -151,13 +151,24 @@ def build_sprite(window, x, y, color, rotation, build_map):
             x_temp -= sprites.bb_width - sprites.bb_frame
             sprites.building_block(window, x_temp, y_temp, color)
 
+def set_array (x_cord, y_cord, color, color_array, movement_string, y_limit_array):
+    for letter in movement_string:
+        if letter == "r":
+            x_cord += 1
+            color_array[x_cord][y_cord] = color
+        if letter == "l":
+            x_cord -= 1
+            color_array[x_cord][y_cord] = color
+        if letter == "u":
+            y_cord -= 1
+            color_array[x_cord][y_cord] = color
+        if letter == "d":
+            y_cord += 1
+            color_array[x_cord][y_cord] = color
 
-def ground_sprite(window, x, y, color, rotation, build_map, array, x_grid_cords, y_grid_cords):
-
-    array_x = x_grid_cords.index(x)
-    array_y = y_grid_cords.index(y)
-
-    array[array_y][array_x] = partial(sprites.building_block, window, x, y, color)
+# def ground_sprite(window, x, y, color, rotation, build_map, array, x_grid_cords, y_grid_cords):
+#
+#    array_x = x_grid_cords.index(x)
 
 
 def do_nothing():

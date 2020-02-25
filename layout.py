@@ -1,9 +1,9 @@
 import pygame
 import random
-from Python.Projects.Games.Tetris import sprites
-#import sprites
-from Python.Projects.Games.Tetris import functions
-#import functions
+# from Python.Projects.Games.Tetris import sprites
+import sprites
+# from Python.Projects.Games.Tetris import functions
+import functions
 from functools import partial
 
 pygame.init()
