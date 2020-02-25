@@ -17,12 +17,12 @@ while run:
             run = False
 
     main_window.fill((255, 255, 255))
-    pygame.draw.rect(main_window, (105, 105, 105), (5, 5, 460, 790))
-    pygame.draw.rect(main_window, (192, 192, 192), (470, 5, 145, 790))
+    pygame.draw.rect(main_window, (105, 105, 105), (5, 5, 433, 790))
+    pygame.draw.rect(main_window, (192, 192, 192), (443, 5, 172, 790))
 
     sprites.building_block(main_window, 100, 100, (255, 0, 0))
     sprites.L_block(main_window, 150, 150, (255, 120, 50), 0)
-    sprites.K_block(main_window, 150, 300, (255, 120, 50), 0)
+    sprites.K_block(main_window, 150, 300, (255, 120, 50), 2)
 
     pygame.display.update()
 

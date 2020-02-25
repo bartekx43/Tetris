@@ -18,16 +18,16 @@ def build_sprite(window, x, y, color, rotation, build_map):
     x_temp, y_temp = x, y
     for letter in build_map:
         if letter == "d":
-            y_temp += bb_height
+            y_temp += bb_height - bb_frame
             building_block(window, x_temp, y_temp, color)
         elif letter == "u":
-            y_temp -= bb_height
+            y_temp -= bb_height - bb_frame
             building_block(window, x_temp, y_temp, color)
         elif letter == "r":
-            x_temp += bb_width
+            x_temp += bb_width - bb_frame
             building_block(window, x_temp, y_temp, color)
         elif letter == "l":
-            x_temp -= bb_width
+            x_temp -= bb_width + bb_frame
             building_block(window, x_temp, y_temp, color)
 
 
