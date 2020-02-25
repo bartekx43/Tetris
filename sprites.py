@@ -19,10 +19,10 @@ def L_block (window, x, y, color, rotation):
     x_temp, y_temp = x, y
     for letter in L_build_map:
         if letter == "d":
-            y_temp -= bb_height
+            y_temp += bb_height
             building_block(window, x_temp, y_temp, color)
         elif letter == "u":
-            y_temp += bb_height
+            y_temp -= bb_height
             building_block(window, x_temp, y_temp, color)
         elif letter == "r":
             x_temp += bb_width
