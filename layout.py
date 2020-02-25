@@ -22,6 +22,7 @@ while run:
 
     sprites.building_block(main_window, 100, 100, (255, 0, 0))
     sprites.L_block(main_window, 150, 150, (255, 120, 50), 0)
+    sprites.K_block(main_window, 150, 300, (255, 120, 50), 0)
 
     pygame.display.update()
 

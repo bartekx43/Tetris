@@ -7,3 +7,10 @@ L_dict = {
     3: "rru"
 }
 
+K_dict = {
+    0: "ddur",
+    1: "rdur",
+    2: "rudd",
+    3: "rudr"
+}
+
