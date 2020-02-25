@@ -1,6 +1,8 @@
 import pygame
-#from Python.Projects.Games.Tetris import sprites
-import sprites
+from Python.Projects.Games.Tetris import sprites
+# import sprites
+
+
 L_dict = {
     0: "ddr",
     1: "durr",
@@ -8,11 +10,18 @@ L_dict = {
     3: "rru"
 }
 
-L_limits_dict = {
+L_bot_limits_dict = {
     0: 564,
     1: 607,
     2: 564,
     3: 650
+}
+
+L_x_limits_dict = {
+    0: (0, 8),
+    1: (0, 7),
+    2: (0, 8),
+    3: (0, 7)
 }
 
 K_dict = {
@@ -22,12 +31,20 @@ K_dict = {
     3: "rudr"
 }
 
-K_limits_dict = {
+K_bot_limits_dict = {
     0: 564,
     1: 607,
     2: 607,
     3: 650
 }
+
+K_x_limits_dict = {
+    0: (0, 8),
+    1: (0, 7),
+    2: (0, 8),
+    3: (0, 7),
+}
+
 
 Z_dict = {
     0: "duru",
@@ -36,11 +53,18 @@ Z_dict = {
     3: "rdr"
 }
 
-Z_limits_dict = {
+Z_bot_limits_dict = {
     0: 607,
     1: 607,
     2: 607,
     3: 607
+}
+
+Z_x_limits_dict = {
+    0: (0, 8),
+    1: (0, 7),
+    2: (0, 8),
+    3: (0, 7)
 }
 
 
@@ -51,12 +75,20 @@ I_dict = {
     3: "rrr"
 }
 
-I_limits_dict = {
+I_bot_limits_dict = {
     0: 521,
     1: 650,
     2: 521,
     3: 650
 }
+
+I_x_limits_dict = {
+    0: (0, 9),
+    1: (0, 6),
+    2: (0, 9),
+    3: (0, 6),
+}
+
 
 O_dict = {
     0: "rdl",
@@ -65,11 +97,18 @@ O_dict = {
     3: "rdl"
 }
 
-O_limits_dict = {
+O_bot_limits_dict = {
     0: 607,
     1: 607,
     2: 607,
     3: 607
+}
+
+O_x_limits_dict = {
+    0: (0, 8),
+    1: (0, 8),
+    2: (0, 8),
+    3: (0, 8)
 }
 
 S_dict = {
@@ -79,11 +118,18 @@ S_dict = {
     3: "rur"
 }
 
-S_limits_dict = {
+S_bot_limits_dict = {
     0: 564,
     1: 650,
     2: 564,
     3: 650
+}
+
+S_x_limits_dict = {
+    0: (0, 8),
+    1: (0, 7),
+    2: (0, 8),
+    3: (0, 7)
 }
 
 
@@ -103,6 +149,21 @@ def build_sprite(window, x, y, color, rotation, build_map):
         elif letter == "l":
             x_temp -= sprites.bb_width - sprites.bb_frame
             sprites.building_block(window, x_temp, y_temp, color)
+
+
+def random_sprite(window, x, y, color, rotation, number):
+    if number == 1:
+        sprites.L_block(window, x, y, color, rotation)
+    elif number == 2:
+        sprites.K_block(window, x, y, color, rotation)
+    elif number == 3:
+        sprites.S_block(window, x, y, color, rotation)
+    elif number == 4:
+        sprites.O_block(window, x, y, color, rotation)
+    elif number == 5:
+        sprites.Z_block(window, x, y, color, rotation)
+    elif number == 6:
+        sprites.I_block(window, x, y, color, rotation)
 
 
 def fall():
