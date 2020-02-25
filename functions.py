@@ -164,8 +164,3 @@ def random_sprite(window, x, y, color, rotation, number):
         sprites.Z_block(window, x, y, color, rotation)
     elif number == 6:
         sprites.I_block(window, x, y, color, rotation)
-
-
-def fall():
-    pass
-
