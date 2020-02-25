@@ -27,7 +27,7 @@ def build_sprite(window, x, y, color, rotation, build_map):
             x_temp += bb_width - bb_frame
             building_block(window, x_temp, y_temp, color)
         elif letter == "l":
-            x_temp -= bb_width + bb_frame
+            x_temp -= bb_width - bb_frame
             building_block(window, x_temp, y_temp, color)
 
 
