@@ -1,6 +1,6 @@
 import pygame
-from Python.Projects.Games.Tetris import sprites
-
+#from Python.Projects.Games.Tetris import sprites
+import sprites
 L_dict = {
     0: "ddr",
     1: "durr",
@@ -9,10 +9,10 @@ L_dict = {
 }
 
 L_limits_dict = {
-    0: 693,
-    1: 736,
-    2: 693,
-    3: 736
+    0: 564,
+    1: 607,
+    2: 564,
+    3: 650
 }
 
 K_dict = {
@@ -23,24 +23,24 @@ K_dict = {
 }
 
 K_limits_dict = {
-    0: 693,
-    1: 736,
-    2: 693,
-    3: 779
+    0: 564,
+    1: 607,
+    2: 607,
+    3: 650
 }
 
 Z_dict = {
-    0: "rudld",
+    0: "duru",
     1: "rdr",
     2: "rudld",
     3: "rdr"
 }
 
 Z_limits_dict = {
-    0: 693,
-    1: 736,
-    2: 693,
-    3: 736
+    0: 607,
+    1: 607,
+    2: 607,
+    3: 607
 }
 
 
@@ -52,10 +52,10 @@ I_dict = {
 }
 
 I_limits_dict = {
-    0: 564,
-    1: 779,
-    2: 564,
-    3: 779
+    0: 521,
+    1: 650,
+    2: 521,
+    3: 650
 }
 
 O_dict = {
@@ -66,10 +66,10 @@ O_dict = {
 }
 
 O_limits_dict = {
-    0: 736,
-    1: 736,
-    2: 736,
-    3: 736
+    0: 607,
+    1: 607,
+    2: 607,
+    3: 607
 }
 
 S_dict = {
@@ -80,10 +80,10 @@ S_dict = {
 }
 
 S_limits_dict = {
-    0: 693,
-    1: 736,
-    2: 693,
-    3: 736
+    0: 564,
+    1: 650,
+    2: 564,
+    3: 650
 }
 
 
