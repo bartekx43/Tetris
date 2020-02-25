@@ -1,6 +1,7 @@
 import pygame
 from Python.Projects.Games.Tetris import sprites
 # import sprites
+from functools import partial
 
 
 L_dict = {
@@ -151,16 +152,13 @@ def build_sprite(window, x, y, color, rotation, build_map):
             sprites.building_block(window, x_temp, y_temp, color)
 
 
-def random_sprite(window, x, y, color, rotation, number):
-    if number == 1:
-        sprites.L_block(window, x, y, color, rotation)
-    elif number == 2:
-        sprites.K_block(window, x, y, color, rotation)
-    elif number == 3:
-        sprites.S_block(window, x, y, color, rotation)
-    elif number == 4:
-        sprites.O_block(window, x, y, color, rotation)
-    elif number == 5:
-        sprites.Z_block(window, x, y, color, rotation)
-    elif number == 6:
-        sprites.I_block(window, x, y, color, rotation)
+def ground_sprite(window, x, y, color, rotation, build_map, array, x_grid_cords, y_grid_cords):
+
+    array_x = x_grid_cords.index(x)
+    array_y = y_grid_cords.index(y)
+
+    array[array_y][array_x] = partial(sprites.building_block, window, x, y, color)
+
+
+def do_nothing():
+    pass
