@@ -1,5 +1,6 @@
 import pygame
-from Python.Projects.Games.Tetris import sprites
+#from Python.Projects.Games.Tetris import sprites
+import sprites
 
 pygame.init()
 pygame.display.set_caption("Tetris")
@@ -20,6 +21,7 @@ while run:
     pygame.draw.rect(main_window, (192, 192, 192), (470, 5, 145, 790))
 
     sprites.building_block(main_window, 100, 100, (255, 0, 0))
+    sprites.L_block(main_window, 150, 150, (255, 120, 50), 0)
 
     pygame.display.update()
 
