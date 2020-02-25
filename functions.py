@@ -14,3 +14,30 @@ K_dict = {
     3: "rudr"
 }
 
+Z_dict = {
+    0: "rudld",
+    1: "rdr",
+    2: "rudld",
+    3: "rdr"
+}
+
+I_dict = {
+    0: "ddd",
+    1: "rrr",
+    2: "ddd",
+    3: "rrr"
+}
+
+O_dict = {
+    0: "rdl",
+    1: "rdl",
+    2: "rdl",
+    3: "rdl"
+}
+
+S_dict = {
+    0: "drd",
+    1: "rur",
+    2: "drd",
+    3: "rur"
+}
