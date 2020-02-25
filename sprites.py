@@ -40,3 +40,22 @@ def K_block(window, x, y, color, rotation):
     build_map = functions.K_dict[rotation]
     build_sprite(window, x, y, color, rotation, build_map)
 
+
+def S_block(window, x, y, color, rotation):
+    build_map = functions.S_dict[rotation]
+    build_sprite(window, x, y, color, rotation, build_map)
+
+
+def O_block(window, x, y, color, rotation):
+    build_map = functions.O_dict[rotation]
+    build_sprite(window, x, y, color, rotation, build_map)
+
+
+def Z_block(window, x, y, color, rotation):
+    build_map = functions.Z_dict[rotation]
+    build_sprite(window, x, y, color, rotation, build_map)
+
+
+def I_block(window, x, y, color, rotation):
+    build_map = functions.I_dict[rotation]
+    build_sprite(window, x, y, color, rotation, build_map)

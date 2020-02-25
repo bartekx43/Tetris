@@ -21,8 +21,12 @@ while run:
     pygame.draw.rect(main_window, (192, 192, 192), (443, 5, 172, 790))
 
     sprites.building_block(main_window, 100, 100, (255, 0, 0))
-    sprites.L_block(main_window, 150, 150, (255, 120, 50), 0)
-    sprites.K_block(main_window, 150, 300, (255, 120, 50), 2)
+    sprites.L_block(main_window, 100, 100, (255, 120, 50), 0)
+    sprites.K_block(main_window, 250, 200, (255, 120, 50), 2)
+    sprites.S_block(main_window, 150, 300, (255, 120, 50), 0)
+    sprites.Z_block(main_window, 250, 400, (255, 120, 50), 2)
+    sprites.O_block(main_window, 150, 500, (255, 120, 50), 0)
+    sprites.I_block(main_window, 250, 500, (255, 120, 50), 2)
 
     pygame.display.update()
 
