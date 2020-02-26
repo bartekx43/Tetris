@@ -1,9 +1,9 @@
 import pygame
 import random
-# from Python.Projects.Games.Tetris import sprites
-import sprites
-# from Python.Projects.Games.Tetris import functions
-import functions
+from Python.Projects.Games.Tetris import sprites
+# import sprites
+from Python.Projects.Games.Tetris import functions
+# import functions
 from functools import partial
 
 pygame.init()
@@ -25,8 +25,11 @@ y = 0
 color = (255, 0, 0)
 vel = 1
 rotation = 0
+color = (0, 0, 0)
+y_limit_array = [650, 650, 650, 650, 650, 650, 650, 650, 650, 650]
 
-positional_array = [[functions.do_nothing] * 10] * 16
+color_array = [[(0, 0, 0)] * 16 for _ in range (10)]
+# positional_array = [[functions.do_nothing] * 10] * 16
 
 main_window = pygame.display.set_mode((screen_width, screen_height))
 
@@ -46,6 +49,7 @@ while run:
         sprite_nr = random.randint(1, 6)
         y = -150
         rotation = random.randint(0, 3)
+        color = (random.randint(20, 255), random.randint(20, 255), random.randint(20, 255))
 
         # Make "give_data" function that does this
 
@@ -85,18 +89,33 @@ while run:
         sprite_active = True
 
     sprite_active = True
-    if y < bot_limits_dict[rotation]:
+
+    # if y < bot_limits_dict[rotation]:  # Minus current height for given column
+    if functions.is_ok(x, y, movement_dict[rotation], y_limit_array, x_grid_cords):
         y += vel
     block(main_window, x, y, color, rotation)
 
-    if y >= bot_limits_dict[rotation]:
-        sprite_active = False
-        # positional_array.append(partial(block, main_window, x, y, color, rotation))
-        functions.ground_sprite(main_window, x, y, color, rotation, movement_dict[rotation], positional_array, x_grid_cords, y_grid_cords)
+    # if y >= bot_limits_dict[rotation]:   # Minus current height for given column
 
-    for row in positional_array:
-        for column in row:
-            column()
+    if not (functions.is_ok(x, y, movement_dict[rotation], y_limit_array, x_grid_cords)):
+        sprite_active = False
+        x_cord = x_grid_cords.index(x)
+        y_cord = y_grid_cords.index(y)
+
+
+        # Setting color of initial square
+
+        color_array[x_cord][y_cord] = color
+        functions.set_array (x_cord, y_cord, color, color_array, movement_dict[rotation], y_limit_array)
+        functions.update_array(x, y, movement_dict[rotation], y_limit_array, x_grid_cords)
+
+        # positional_array.append(partial(block, main_window, x, y, color, rotation))
+        # functions.ground_sprite(main_window, x, y, color, rotation, movement_dict[rotation], positional_array, x_grid_cords, y_grid_cords)
+
+    for i, row in enumerate(color_array):
+        for j, column in enumerate(row):
+            if column != (0, 0, 0):
+                sprites.building_block(main_window, x_grid_cords[i], y_grid_cords[j], color_array[i][j])
 
     pygame.display.update()
 

@@ -151,6 +151,7 @@ def build_sprite(window, x, y, color, rotation, build_map):
             x_temp -= sprites.bb_width - sprites.bb_frame
             sprites.building_block(window, x_temp, y_temp, color)
 
+
 def set_array (x_cord, y_cord, color, color_array, movement_string, y_limit_array):
     for letter in movement_string:
         if letter == "r":
@@ -171,5 +172,44 @@ def set_array (x_cord, y_cord, color, color_array, movement_string, y_limit_arra
 #    array_x = x_grid_cords.index(x)
 
 
-def do_nothing():
-    pass
+def is_ok(x, y, build_map, y_limit_array, x_grid_cords): # Problem here, just doenst trigger for some
+    x_temp, y_temp = x, y
+    if y_limit_array[x_grid_cords.index(x)] <= y:
+        return False
+
+    for letter in build_map:
+        if letter == "d":
+            y_temp += sprites.bb_height - sprites.bb_frame
+        elif letter == "u":
+            y_temp -= sprites.bb_height - sprites.bb_frame
+        elif letter == "r":
+            x_temp += sprites.bb_width - sprites.bb_frame
+        elif letter == "l":
+            x_temp -= sprites.bb_width - sprites.bb_frame
+
+        if y_limit_array[x_grid_cords.index(x)] <= y_temp:
+            print(x_temp, y_temp)
+            return False
+
+    return True
+
+
+def update_array(x, y, build_map, y_limit_array, x_grid_cords):
+    x_temp, y_temp = x, y
+    index = x_grid_cords.index(x)
+    y_limit_array[index] = y - 43
+    for letter in build_map:
+        if letter == "d":
+            y_temp += 43
+        elif letter == "u":
+            y_temp -= 43
+            if y_temp <= y_limit_array[x_grid_cords.index(x_temp)]:
+                y_limit_array[x_grid_cords.index(x_temp)] = y_temp - 43
+        elif letter == "r":
+            x_temp += sprites.bb_width - sprites.bb_frame
+            if y_temp <= y_limit_array[x_grid_cords.index(x_temp)]:
+                y_limit_array[x_grid_cords.index(x_temp)] = y_temp - 43
+        elif letter == "l":
+            x_temp -= sprites.bb_width - sprites.bb_frame
+            if y_temp <= y_limit_array[x_grid_cords.index(x_temp)]:
+                y_limit_array[x_grid_cords.index(x_temp)] = y_temp - 43
