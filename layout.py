@@ -1,13 +1,16 @@
 import pygame
 import random
-from Python.Projects.Games.Tetris import sprites
-# import sprites
-from Python.Projects.Games.Tetris import functions
-# import functions
+#from Python.Projects.Games.Tetris import sprites
+import sprites
+#from Python.Projects.Games.Tetris import functions
+import functions
 from functools import partial
 
 pygame.init()
 pygame.display.set_caption("Tetris")
+
+song = pygame.mixer.music.load('pymusic.mp3')
+pygame.mixer.music.play(-1)
 
 screen_width = 620
 screen_height = 701
@@ -52,37 +55,36 @@ while run:
         color = (random.randint(20, 255), random.randint(20, 255), random.randint(20, 255))
 
         # Make "give_data" function that does this
-
         if sprite_nr == 1:
-            from Python.Projects.Games.Tetris.sprites import L_block as block
-            from Python.Projects.Games.Tetris.functions import L_x_limits_dict as x_limits_dict
-            from Python.Projects.Games.Tetris.functions import L_bot_limits_dict as bot_limits_dict
-            from Python.Projects.Games.Tetris.functions import L_dict as movement_dict
+            from  sprites import L_block as block
+            from  functions import L_x_limits_dict as x_limits_dict
+            from  functions import L_bot_limits_dict as bot_limits_dict
+            from  functions import L_dict as movement_dict
         if sprite_nr == 2:
-            from Python.Projects.Games.Tetris.sprites import K_block as block
-            from Python.Projects.Games.Tetris.functions import K_x_limits_dict as x_limits_dict
-            from Python.Projects.Games.Tetris.functions import K_bot_limits_dict as bot_limits_dict
-            from Python.Projects.Games.Tetris.functions import K_dict as movement_dict
+            from  sprites import K_block as block
+            from  functions import K_x_limits_dict as x_limits_dict
+            from  functions import K_bot_limits_dict as bot_limits_dict
+            from  functions import K_dict as movement_dict
         if sprite_nr == 3:
-            from Python.Projects.Games.Tetris.sprites import S_block as block
-            from Python.Projects.Games.Tetris.functions import S_x_limits_dict as x_limits_dict
-            from Python.Projects.Games.Tetris.functions import S_bot_limits_dict as bot_limits_dict
-            from Python.Projects.Games.Tetris.functions import S_dict as movement_dict
+            from  sprites import S_block as block
+            from  functions import S_x_limits_dict as x_limits_dict
+            from  functions import S_bot_limits_dict as bot_limits_dict
+            from  functions import S_dict as movement_dict
         if sprite_nr == 4:
-            from Python.Projects.Games.Tetris.sprites import O_block as block
-            from Python.Projects.Games.Tetris.functions import O_x_limits_dict as x_limits_dict
-            from Python.Projects.Games.Tetris.functions import O_bot_limits_dict as bot_limits_dict
-            from Python.Projects.Games.Tetris.functions import O_dict as movement_dict
+            from  sprites import O_block as block
+            from  functions import O_x_limits_dict as x_limits_dict
+            from  functions import O_bot_limits_dict as bot_limits_dict
+            from  functions import O_dict as movement_dict
         if sprite_nr == 5:
-            from Python.Projects.Games.Tetris.sprites import Z_block as block
-            from Python.Projects.Games.Tetris.functions import Z_x_limits_dict as x_limits_dict
-            from Python.Projects.Games.Tetris.functions import Z_bot_limits_dict as bot_limits_dict
-            from Python.Projects.Games.Tetris.functions import Z_dict as movement_dict
+            from sprites import Z_block as block
+            from functions import Z_x_limits_dict as x_limits_dict
+            from functions import Z_bot_limits_dict as bot_limits_dict
+            from functions import Z_dict as movement_dict
         if sprite_nr == 6:
-            from Python.Projects.Games.Tetris.sprites import I_block as block
-            from Python.Projects.Games.Tetris.functions import I_x_limits_dict as x_limits_dict
-            from Python.Projects.Games.Tetris.functions import I_bot_limits_dict as bot_limits_dict
-            from Python.Projects.Games.Tetris.functions import I_dict as movement_dict
+            from sprites import I_block as block
+            from functions import I_x_limits_dict as x_limits_dict
+            from functions import I_bot_limits_dict as bot_limits_dict
+            from functions import I_dict as movement_dict
 
         x = x_grid_cords[random.randint(x_limits_dict[rotation][0], x_limits_dict[rotation][1])]
         block(main_window, x, y, color, rotation)
