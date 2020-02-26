@@ -187,8 +187,7 @@ def is_ok(x, y, build_map, y_limit_array, x_grid_cords): # Problem here, just do
         elif letter == "l":
             x_temp -= sprites.bb_width - sprites.bb_frame
 
-        if y_limit_array[x_grid_cords.index(x)] <= y_temp:
-            print(x_temp, y_temp)
+        if y_limit_array[x_grid_cords.index(x_temp)] <= y_temp:
             return False
 
     return True
