@@ -1,6 +1,6 @@
 import pygame
-#from Python.Projects.Games.Tetris import sprites
-import sprites
+from Python.Projects.Games.Tetris import sprites
+# import sprites
 from functools import partial
 
 
@@ -145,7 +145,10 @@ def block_in_array(x, y, coord_array):
     return False
 
 
-def is_ok(x, y, build_map, coord_array, x_grid_cords, y_grid_cords):
+def is_ok(x, y, build_map, coord_array, x_grid_cords, y_grid_cords, status):
+
+    if y < 5 and status != 'Falling':
+        return False
 
     y_approximated_higher = y_approx(y, y_grid_cords)
     y_approximated_lower = y_approximated_higher + 43
@@ -178,28 +181,45 @@ def is_ok(x, y, build_map, coord_array, x_grid_cords, y_grid_cords):
     return True
 
 
-def is_ok_x(x, y, build_map, coord_array, x_grid_cords, y_grid_cords):
+def is_ok_x(x, y, build_map, coord_array, x_grid_cords, y_grid_cords, status):
+
+    if y < 5 and status != 'Falling':
+        return False
 
     if x < 5:
         return False
     if x > 392:
         return False
 
-    x_index = x_grid_cords.index(x)
-    y_index = y_grid_cords.index(y)
+    if y in y_grid_cords:
+        y_index_higher = y_grid_cords.index(y)
+        y_index_lower = y_index_higher
 
-    if coord_array[x_index][y_index] != (0, 0):
+    x_index = x_grid_cords.index(x)
+
+    if y not in y_grid_cords:
+        y_approximated_higher = y_approx(y, y_grid_cords)
+        y_index_higher = y_grid_cords.index(y_approximated_higher)
+        y_index_lower = y_index_higher - 1
+
+    if coord_array[x_index][y_index_higher] != (0, 0) or coord_array[x_index][y_index_lower] != (0, 0):
         return False
 
     for letter in build_map:
         if letter == "d":
-            y_index += 1
+            y_index_higher += 1
         elif letter == "u":
-            y_index -= 1
+            y_index_higher -= 1
         elif letter == "r":
             x_index += 1
         elif letter == "l":
             x_index -= 1
+
+        if y not in y_grid_cords:
+            y_index_lower = y_index_higher - 1
+
+        if y_index_lower > 20:
+            return False
 
         if x_index < 0:
             return False
@@ -207,7 +227,7 @@ def is_ok_x(x, y, build_map, coord_array, x_grid_cords, y_grid_cords):
         if x_index > 9:
             return False
 
-        if coord_array[x_index][y_index] != (0, 0):
+        if coord_array[x_index][y_index_higher] != (0, 0) or coord_array[x_index][y_index_lower] != (0, 0):
             return False
 
     return True
@@ -261,13 +281,104 @@ def one_down(color_array, row_index):
         color_array[0][index] = (0, 0, 0)
 
 
-def delete_full_rows(color_array):
+def delete_full_rows(color_array, score, depth):
 
     transpose = [[color_array[j][i] for j in range(len(color_array))] for i in range(len(color_array[0]))]
 
     for i, row in enumerate(transpose):
         if row_full(row):
+            score[0] -= (depth - 1) ** 2
+            score[0] += depth ** 2
             one_down(transpose, i)
             color_array = [[transpose[j][i] for j in range(len(transpose))] for i in range(len(transpose[0]))]
-            color_array = delete_full_rows(color_array)
+            color_array = delete_full_rows(color_array, score, depth + 1)
+            break
+
     return color_array
+
+
+def game_over(window):
+    game_over_run = True
+    while game_over_run is True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+
+        pygame.time.delay(5)
+        font = pygame.font.SysFont("smallfonts", 65)
+        text = font.render("КОНЕЦ ИГРЫ", True, (0, 0, 0))
+
+        pygame.draw.rect(window, (0, 0, 0), (60, 90, 325, 65))
+        pygame.draw.rect(window, (192, 192, 192), (65, 95, 315, 55))
+        window.blit(text, (70, 100))
+
+        # Green Button
+
+        font = pygame.font.SysFont("smallfonts", 30)
+        text_p_a = font.render("НОВАЯ ИГРА", True, (0, 0, 0))
+
+        pygame.draw.rect(window, (0, 0, 0), (40, 410, 160, 65))
+        pygame.draw.rect(window, (255, 255, 0), (45, 415, 150, 55))
+        window.blit(text_p_a, (53, 432))
+
+        # Red Button
+
+        text_q = font.render("ВЫХОД", True, (0, 0, 0))
+
+        pygame.draw.rect(window, (0, 0, 0), (238, 410, 160, 65))
+        pygame.draw.rect(window, (255, 0, 0), (243, 415, 150, 55))
+        window.blit(text_q, (277, 432))
+
+        mouse = pygame.mouse.get_pos()
+        click = pygame.mouse.get_pressed()
+
+        if 40 <= mouse[0] <= 200 and 410 <= mouse[1] <= 475:
+            pygame.draw.rect(window, (175, 175, 0), (45, 415, 150, 55))
+            window.blit(text_p_a, (53, 432))
+            if click[0]:
+                return True
+
+        if 238 <= mouse[0] <= 398 and 410 <= mouse[1] <= 475:
+            pygame.draw.rect(window, (175, 0, 0), (243, 415, 150, 55))
+            window.blit(text_q, (277, 432))
+            if click[0]:
+                return False
+
+        pygame.display.update()
+
+
+def bank_update(window, sprite_dict, color, sprite_nr):
+    if sprite_nr == 1:
+        sprites.L_block(window, 485, 210, color, 0)
+    elif sprite_nr == 2:
+        sprites.K_block(window, 486, 213, color, 0)
+    elif sprite_nr == 3:
+        sprites.S_block(window, 483, 215, color, 0)
+    elif sprite_nr == 4:
+        sprites.O_block(window, 485, 235, color, 0)
+    elif sprite_nr == 5:
+        sprites.Z_block(window, 486, 255, color, 0)
+    elif sprite_nr == 6:
+        sprites.I_block(window, 506, 194, color, 0)
+
+
+def pause(window):
+    while True:
+        button = pygame.Rect(448, 580, 162, 100)
+        mouse = pygame.mouse.get_pos()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if 448 <= mouse[0] <= 610 and 580 <= mouse[1] <= 680:
+                    return
+
+        if 448 <= mouse[0] <= 610 and 580 <= mouse[1] <= 680:
+            pygame.draw.rect(window, (110, 0, 0), (448, 580, 162, 100))
+            pygame.draw.polygon(window, (255, 255, 102), [(489, 590), (489, 670), (569, 630)])
+        else:
+            pygame.draw.rect(window, (139, 0, 0), (448, 580, 162, 100))
+            pygame.draw.polygon(window, (255, 255, 153), [(489, 590), (489, 670), (569, 630)])
+
+        pygame.display.update()
