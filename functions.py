@@ -1,6 +1,6 @@
 import pygame
-from Python.Projects.Games.Tetris import sprites
-# import sprites
+#from Python.Projects.Games.Tetris import sprites
+import sprites
 from functools import partial
 
 
@@ -152,6 +152,7 @@ def is_ok(x, y, build_map, coord_array, x_grid_cords, y_grid_cords, status):
 
     y_approximated_higher = y_approx(y, y_grid_cords)
     y_approximated_lower = y_approximated_higher + 43
+
     x_temp, y_temp = x, y
 
     if block_in_array(x_temp, y_approximated_higher, coord_array) or block_in_array(x_temp, y_approximated_lower, coord_array) or y_temp >= 650:
@@ -170,11 +171,15 @@ def is_ok(x, y, build_map, coord_array, x_grid_cords, y_grid_cords, status):
         elif letter == "l":
             x_temp -= sprites.bb_width - sprites.bb_frame
 
+        if y_temp < 5 and status != 'Falling':
+            return False
+
         if x_temp > x_grid_cords[9] or x < 0:
             return False
 
         y_approximated_higher = y_approx(y_temp, y_grid_cords)
         y_approximated_lower = y_approximated_higher + 43
+
         if block_in_array(x_temp, y_approximated_higher, coord_array) or block_in_array(x_temp, y_approximated_lower, coord_array) or y_temp >= 650:
             return False
 
@@ -219,6 +224,9 @@ def is_ok_x(x, y, build_map, coord_array, x_grid_cords, y_grid_cords, status):
             y_index_lower = y_index_higher - 1
 
         if y_index_lower > 20:
+            return False
+
+        if y_index_higher < 4 or y_index_lower < 4:
             return False
 
         if x_index < 0:
@@ -297,20 +305,28 @@ def delete_full_rows(color_array, score, depth):
     return color_array
 
 
-def game_over(window):
+def game_over(window, first_game):
     game_over_run = True
     while game_over_run is True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
 
-        pygame.time.delay(5)
         font = pygame.font.SysFont("smallfonts", 65)
-        text = font.render("КОНЕЦ ИГРЫ", True, (0, 0, 0))
 
-        pygame.draw.rect(window, (0, 0, 0), (60, 90, 325, 65))
-        pygame.draw.rect(window, (192, 192, 192), (65, 95, 315, 55))
-        window.blit(text, (70, 100))
+        if not first_game:
+            text = font.render("КОНЕЦ ИГРЫ", True, (0, 0, 0))
+
+            pygame.draw.rect(window, (0, 0, 0), (60, 90, 325, 65))
+            pygame.draw.rect(window, (192, 192, 192), (65, 95, 315, 55))
+            window.blit(text, (70, 102))
+
+        if first_game:
+            text = font.render("НАШ ТЕТРИС", True, (0, 0, 0))
+
+            pygame.draw.rect(window, (0, 0, 0), (60, 90, 325, 65))
+            pygame.draw.rect(window, (192, 192, 192), (65, 95, 315, 55))
+            window.blit(text, (72, 102))
 
         # Green Button
 
@@ -380,5 +396,6 @@ def pause(window):
         else:
             pygame.draw.rect(window, (139, 0, 0), (448, 580, 162, 100))
             pygame.draw.polygon(window, (255, 255, 153), [(489, 590), (489, 670), (569, 630)])
+
 
         pygame.display.update()

@@ -2,10 +2,10 @@
 # ------------------------------------------------------------------------
 import pygame
 import random
-from Python.Projects.Games.Tetris import sprites
-#import sprites
-from Python.Projects.Games.Tetris import functions
-#import functions
+#from Python.Projects.Games.Tetris import sprites
+import sprites
+#from Python.Projects.Games.Tetris import functions
+import functions
 from functools import partial
 from math import floor
 
@@ -73,7 +73,7 @@ score = [0]
 block_bank = (0, 0)
 block_bank_color = (0, 0, 0)
 first_swap = True
-
+first_game = True
 # Rendering labels and images
 
 score_text = pygame.font.SysFont("smallfonts", 50)
@@ -88,8 +88,8 @@ main_window = pygame.display.set_mode((screen_width, screen_height))
 
 background = pygame.image.load('Tetris_bg.jpg').convert_alpha()
 
-run = True
 
+run = True
 while run:
     pygame.time.delay(5)
     mouse = pygame.mouse.get_pos()
@@ -128,7 +128,7 @@ while run:
 
     instructions_header = score_text.render("Кнопки:", True, (0, 0, 0))
 
-    rotate_text = instructions_text.render("R - розвернуть", True, (0, 0, 0,))
+    rotate_text = instructions_text.render("R - перевернуть", True, (0, 0, 0,))
     swap_text = instructions_text.render("S - подменить", True, (0, 0, 0,))
     move_text = instructions_text.render("< > - ходить", True, (0, 0, 0,))
     accelerate_text = instructions_text.render("_ - бегать", True, (0, 0, 0))
@@ -138,6 +138,10 @@ while run:
     main_window.blit(swap_text, (452, 475))
     main_window.blit(move_text, (452, 500))
     main_window.blit(accelerate_text, (452, 525))
+
+    if first_game:
+        run = functions.game_over(main_window, first_game)
+        first_game = False
 
     if sprite_status == "Dead":
         # Defining parameters
@@ -162,10 +166,21 @@ while run:
         6: partial(sprites.I_block, main_window, x, y, color, rotation)
     }
 
+    for i, row in enumerate(coord_array):
+        count = 0
+        for item in row:
+            if item != (0, 0):
+                count += 1
+
+
     if not(functions.is_ok(x, y + vel, movement_dict[rotation], coord_array, x_grid_cords, y_grid_cords, sprite_status)):
         vel = 1
 
+    for row in color_array:
+        print (row)
+
     if functions.is_ok(x, y, movement_dict[rotation], coord_array, x_grid_cords, y_grid_cords, sprite_status):
+
         sprite_status = "Falling"
         delay_dropped = 100
         y += vel
@@ -292,7 +307,7 @@ while run:
                 sprites.building_block(main_window, x_grid_cords[i], y_grid_cords[j], color_array[i][j])
 
     if not run:
-        run = functions.game_over(main_window)
+        run = functions.game_over(main_window, first_game)
         if run is True:
             color_array = [[(0, 0, 0)] * 20 for _ in range(10)]
             coord_array = [[(0, 0)] * 20 for _ in range(10)]
