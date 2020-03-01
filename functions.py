@@ -1,6 +1,6 @@
 import pygame
-#from Python.Projects.Games.Tetris import sprites
-import sprites
+from Python.Projects.Games.Tetris import sprites
+# import sprites
 from functools import partial
 
 
@@ -110,7 +110,7 @@ def build_sprite(window, x, y, color, rotation, build_map):
             sprites.building_block(window, x_temp, y_temp, color)
 
 
-def set_array(x_cord, y_cord, color, color_array, movement_string, y_limit_array):
+def set_array(x_cord, y_cord, color, color_array, movement_string):
     for letter in movement_string:
         if letter == "r":
             x_cord += 1
@@ -126,11 +126,12 @@ def set_array(x_cord, y_cord, color, color_array, movement_string, y_limit_array
             color_array[x_cord][y_cord] = color
 
 
+
 def y_approx(y, y_grid_cords):
     i = 0
 
-    if y < 5:
-        return y_grid_cords[i]
+    # if y < 5:
+    #    return y_grid_cords[i]
 
     while i < len(y_grid_cords) and y >= y_grid_cords[i]:
         i += 1
@@ -229,10 +230,7 @@ def is_ok_x(x, y, build_map, coord_array, x_grid_cords, y_grid_cords, status):
         if y_index_higher < 4 or y_index_lower < 4:
             return False
 
-        if x_index < 0:
-            return False
-
-        if x_index > 9:
+        if x_index < 0 or x_index > 9:
             return False
 
         if coord_array[x_index][y_index_higher] != (0, 0) or coord_array[x_index][y_index_lower] != (0, 0):

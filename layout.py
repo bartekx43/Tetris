@@ -2,10 +2,10 @@
 # ------------------------------------------------------------------------
 import pygame
 import random
-#from Python.Projects.Games.Tetris import sprites
-import sprites
-#from Python.Projects.Games.Tetris import functions
-import functions
+from Python.Projects.Games.Tetris import sprites
+#import sprites
+from Python.Projects.Games.Tetris import functions
+#import functions
 from functools import partial
 from math import floor
 
@@ -26,7 +26,7 @@ screen_width = 620
 screen_height = 701
 
 x_grid_cords = [5, 48, 91, 134, 177, 220, 263, 306, 349, 392]
-y_grid_cords = [-167, -124, -81, -38, 5, 48, 91, 134, 177, 220, 263, 306, 349, 392, 435, 478, 521, 564, 607, 650]
+y_grid_cords = [-253, -210, -167, -124, -81, -38, 5, 48, 91, 134, 177, 220, 263, 306, 349, 392, 435, 478, 521, 564, 607, 650]
 
 x_limits_dict_dict = {
     1: functions.L_x_limits_dict,
@@ -65,8 +65,8 @@ delay_swap = 0
 click1_delay = 0
 click2_delay = 0
 y_limit_array = [650, 650, 650, 650, 650, 650, 650, 650, 650, 650]
-color_array = [[(0, 0, 0)] * 20 for _ in range(10)]
-coord_array = [[(0, 0)] * 20 for _ in range(10)]
+color_array = [[(0, 0, 0)] * 22 for _ in range(10)]
+coord_array = [[(0, 0)] * 22 for _ in range(10)]
 space_click = False
 score = [0]
 # Swap vars
@@ -146,7 +146,7 @@ while run:
     if sprite_status == "Dead":
         # Defining parameters
         sprite_nr = random.randint(1, 6)
-        y = -150
+        y = -170
         rotation = random.randint(0, 3)
         color = (random.randint(20, 255), random.randint(20, 255), random.randint(20, 255))
         delay_dropped = 100
@@ -166,21 +166,10 @@ while run:
         6: partial(sprites.I_block, main_window, x, y, color, rotation)
     }
 
-    for i, row in enumerate(coord_array):
-        count = 0
-        for item in row:
-            if item != (0, 0):
-                count += 1
-
-
     if not(functions.is_ok(x, y + vel, movement_dict[rotation], coord_array, x_grid_cords, y_grid_cords, sprite_status)):
         vel = 1
 
-    for row in color_array:
-        print (row)
-
     if functions.is_ok(x, y, movement_dict[rotation], coord_array, x_grid_cords, y_grid_cords, sprite_status):
-
         sprite_status = "Falling"
         delay_dropped = 100
         y += vel
@@ -209,7 +198,7 @@ while run:
                 x_cord = x_grid_cords.index(x)
                 y_cord = y_grid_cords.index(y)
                 color_array[x_cord][y_cord] = color
-                functions.set_array(x_cord, y_cord, color, color_array, movement_dict[rotation], y_limit_array)
+                functions.set_array(x_cord, y_cord, color, color_array, movement_dict[rotation])
                 functions.update_array(x, y, movement_dict[rotation], y_limit_array, x_grid_cords)
                 functions.coordinate_array(coord_array, color_array, x_grid_cords, y_grid_cords)
 
@@ -309,8 +298,8 @@ while run:
     if not run:
         run = functions.game_over(main_window, first_game)
         if run is True:
-            color_array = [[(0, 0, 0)] * 20 for _ in range(10)]
-            coord_array = [[(0, 0)] * 20 for _ in range(10)]
+            color_array = [[(0, 0, 0)] * 22 for _ in range(10)]
+            coord_array = [[(0, 0)] * 22 for _ in range(10)]
             score[0] = 0
             first_swap = True
 

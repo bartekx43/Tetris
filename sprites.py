@@ -1,7 +1,7 @@
 import pygame
-import functions
-#from Python.Projects.Games.Tetris import functions
-import functions
+# import functions
+from Python.Projects.Games.Tetris import functions
+# import functions
 # Constant dimensions of building block
 bb_width = 46
 bb_height = 46
