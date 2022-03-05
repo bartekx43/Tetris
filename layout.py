@@ -2,10 +2,8 @@
 # ------------------------------------------------------------------------
 import pygame
 import random
-from Python.Projects.Games.Tetris import sprites
-#import sprites
-from Python.Projects.Games.Tetris import functions
-#import functions
+import sprites
+import functions
 from functools import partial
 from math import floor
 
@@ -83,7 +81,6 @@ instructions_text = pygame.font.SysFont("smallfonts", 30)
 
 # RUNNING WINDOW
 # ------------------------------------------------------------------------------
-# ------------------------------------------------------------------------------
 main_window = pygame.display.set_mode((screen_width, screen_height))
 
 background = pygame.image.load('Tetris_bg.jpg').convert_alpha()
@@ -130,8 +127,8 @@ while run:
 
     rotate_text = instructions_text.render("R - перевернуть", True, (0, 0, 0,))
     swap_text = instructions_text.render("S - подменить", True, (0, 0, 0,))
-    move_text = instructions_text.render("< > - ходить", True, (0, 0, 0,))
-    accelerate_text = instructions_text.render("_ - бегать", True, (0, 0, 0))
+    move_text = instructions_text.render("< > - двигать", True, (0, 0, 0,))
+    accelerate_text = instructions_text.render("_ - спускать", True, (0, 0, 0))
 
     main_window.blit(instructions_header, (448, 410))
     main_window.blit(rotate_text, (452, 450))
